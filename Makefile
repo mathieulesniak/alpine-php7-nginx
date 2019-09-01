@@ -1,5 +1,5 @@
-PROJECT_NAME=laboiteacookies-shop-docker
-REGISTRY_NAME=registry.gitlab.com/la-boite-a-cookies/shop-docker
+PROJECT_NAME=alpine-php7-nginx-docker
+REGISTRY_NAME=mathieulesniak/alpine-php7-nginx-docker
 REGISTRY_TAG=latest
 
 
