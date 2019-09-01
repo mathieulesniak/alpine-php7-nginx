@@ -31,7 +31,7 @@ RUN { \
     echo 'opcache.enable_cli=0'; \
     } > /etc/php7/conf.d/opcache-recommended.ini
 
-# Prestashop settings
+# limits settings
 RUN { \
     echo 'memory_limit=256M'; \
     echo 'upload_max_filesize=128M'; \
@@ -43,13 +43,18 @@ RUN sed -i "s/nginx:x:100:101:nginx:\/var\/lib\/nginx:\/sbin\/nologin/nginx:x:10
     sed -i "s/nginx:x:100:101:nginx:\/var\/lib\/nginx:\/sbin\/nologin/nginx:x:100:101:nginx:\/usr:\/bin\/bash/g" /etc/passwd- && \
     ln -s /sbin/php-fpm7 /sbin/php-fpm
 
+# Composer
+RUN cd /tmp/ && \
+    curl -sS https://getcomposer.org/installer | php && \
+    mv composer.phar /usr/local/bin/composer && \
+    composer self-update
+
 ADD php-fpm.conf /etc/php7/
 ADD nginx-site.conf /etc/nginx/nginx.conf
 ADD entrypoint.sh /etc/entrypoint.sh
 
 WORKDIR /var/www/
 EXPOSE 80
-VOLUME ["/var/www"]
 
 
 ENTRYPOINT ["sh", "/etc/entrypoint.sh"]
