@@ -1,8 +1,4 @@
 #!/bin/sh
-echo "[i] Fixing permissions & ownership..."
-# find /var/www/ -type f -exec chmod 644 {} \; && find /var/www/ -type d -exec chmod 755 {} \;
-chown -R nginx:nginx /var/www
-
 echo "[i] Starting PHP+Nginx.."
 
 # start php-fpm

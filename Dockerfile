@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.12
 MAINTAINER Mathieu LESNIAK <mathieu@lesniak.fr>
 
 RUN apk update && \
@@ -8,7 +8,7 @@ RUN apk update && \
     php7-pdo_mysql php7-mysqli php7-session \
     php7-gd php7-iconv php7-mcrypt php7-gmp php7-zip \
     php7-curl php7-opcache php7-ctype php7-apcu php7-memcached \
-    php7-intl php7-bcmath php7-dom php7-mbstring php7-simplexml php7-soap php7-tokenizer php7-xmlreader && apk add -u musl && \
+    php7-intl php7-bcmath php7-dom php7-mbstring php7-simplexml php7-soap php7-tokenizer php7-xmlreader php7-xmlwriter php7-pcntl && apk add -u musl && \
     apk add msmtp && \
     rm -rf /var/cache/apk/*
 
@@ -53,6 +53,7 @@ RUN cd /tmp/ && \
 ADD php-fpm.conf /etc/php7/
 ADD nginx-site.conf /etc/nginx/nginx.conf
 ADD entrypoint.sh /etc/entrypoint.sh
+ADD ownership.sh /
 
 WORKDIR /var/www/
 EXPOSE 80
